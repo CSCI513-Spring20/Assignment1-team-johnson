@@ -3,6 +3,8 @@ public class BattleshipTester
 {
 	public static void main(String[] args) 
 	{
-		Battleship b = new CruiserBattleship();
+		BattleshipSearch bs = new BattleshipSearch();
+		bs.readCoordinates();
+		bs.displayGame(2);
 	}
 }
