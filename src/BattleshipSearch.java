@@ -31,11 +31,11 @@ public class BattleshipSearch
 			for (int j = 0; j < b.length; j++)
 			{
 				int g = b[i][j] ? 1 : 0;
-				System.out.print("|" + g);
+				System.out.print(" | " + g);
 			}
 		
-			System.out.print("|"+'\n');
-			for (int k = 0; k <= b.length * 2; k++)
+			System.out.print(" |"+'\n');
+			for (int k = 0; k <= b.length * 4; k++)
 			{
 				System.out.print("-");
 			}
@@ -61,14 +61,25 @@ public class BattleshipSearch
 					Pattern p = Pattern.compile(regex);
 					Matcher matcher = p.matcher(record);
 					boolean[][] b = new boolean[25][25];
+					int count = 0;
 					while (matcher.find())
 					{
 						int x = Integer.parseInt(matcher.group(1));
 						int y = Integer.parseInt(matcher.group(2));
 						b[x][y] = true;
+						if (count < 5)
+						{
+							c.setPosition(b);
+						}
+						else
+						{
+							s.setPosition(b);
+						}
+						count++;
 					}
 					setGame(i, b);	
 				}
+				scanner.close();
 				i++;
 			}
 			reader.close();

@@ -3,6 +3,7 @@ public abstract class Battleship
 	int size;
 	String name;
 	boolean[][] position = new boolean[25][25];
+	
 	public Battleship(int s, String n) 
 	{
 		size = s;
