@@ -1,4 +1,3 @@
-
 public class HorizontalSweepStrategy implements SearchStrategy {
 	public boolean[][] search(boolean[][] gameGrid) {
 		boolean[][] result = new boolean[gameGrid.length][gameGrid.length];
