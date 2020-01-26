@@ -1,47 +1,82 @@
-public class BattleshipSearch {
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+public class BattleshipSearch 
+{
 	SearchStrategy searchStrategy;
-	boolean[][] grid = new boolean[25][25];
+	Battleship c = new CarrierBattleship();
+	Battleship s = new SubmarineBattleship();
+	Map<Integer, boolean[][]> game = new HashMap<Integer, boolean[][]>();
 		
 	public BattleshipSearch() 
 	{
 		
 	}
 	
-	public void initGrid() {
-		for (int i = 0; i < grid.length; i++) 
-		{
-			for (int j = 0; j < grid.length; j++)
-			{
-				setGridLocation(i,j,false);
-			}
-		}
-	}
-	
-	public boolean[][] getGrid()
+	public void setGame(int gameNumber, boolean[][] gameGrid) 
 	{
-		return grid;
+		game.put(gameNumber, gameGrid);
 	}
 	
-	public void setGridLocation(int i, int j, boolean b) 
+	public void displayGame(int gameNumber)
 	{
-		grid[i][j] = b;
-	}
-	
-	public void displayGrid() {
-		for (int i = 0; i < grid.length; i++) 
+		boolean[][] b = game.get(gameNumber);
+		for (int i = 0; i < b.length; i++) 
 		{
-			for (int j = 0; j < grid.length; j++)
+			for (int j = 0; j < b.length; j++)
 			{
-				int b = grid[i][j] ? 1 : 0;
-				System.out.print("|" + b);
+				int g = b[i][j] ? 1 : 0;
+				System.out.print("|" + g);
 			}
 		
 			System.out.print("|"+'\n');
-			for (int k = 0; k <= grid.length * 2; k++)
+			for (int k = 0; k <= b.length * 2; k++)
 			{
 				System.out.print("-");
 			}
 			System.out.print('\n');
+		}
+	}
+	
+	public void readCoordinates() 
+	{
+		try
+		{
+			FileReader inputFile = new FileReader("../CSCI_513_Assignment1_Team-Johnson/Assignment1/input.txt");
+			BufferedReader reader = new BufferedReader(inputFile);
+			String line;
+			int i = 0;
+			while ((line = reader.readLine()) != null)
+			{
+				Scanner scanner = new Scanner(line);
+				while(scanner.hasNextLine()) 
+				{
+					String record = scanner.nextLine();
+					String regex = "\\(([0-9]+),([0-9]+)\\)";
+					Pattern p = Pattern.compile(regex);
+					Matcher matcher = p.matcher(record);
+					boolean[][] b = new boolean[25][25];
+					while (matcher.find())
+					{
+						int x = Integer.parseInt(matcher.group(1));
+						int y = Integer.parseInt(matcher.group(2));
+						b[x][y] = true;
+					}
+					setGame(i, b);	
+				}
+				i++;
+			}
+			reader.close();
+			
+		} 
+		catch (Exception e)
+		{
+			e.printStackTrace();
 		}
 	}
 }

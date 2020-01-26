@@ -1,6 +1,3 @@
-
-
-
 public class CarrierBattleship extends Battleship{
 	public CarrierBattleship()
 	{
