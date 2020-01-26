@@ -1,8 +1,9 @@
 public abstract class Battleship 
 {
+	final int GRID_SIZE = 25;
 	int size;
 	String name;
-	boolean[][] position = new boolean[25][25];
+	boolean[][] position = new boolean[GRID_SIZE][GRID_SIZE];
 	
 	public Battleship(int s, String n) 
 	{
@@ -24,11 +25,11 @@ public abstract class Battleship
 	{
 		return name;
 	}
-	boolean[][] getPosition()
+	boolean getPosition(int x, int y)
 	{
-		return position;
+		return position[x][y];
 	}
-	void setPosition(boolean[][] p) {
-		position = p;
+	void setPosition(int x, int y) {
+		position[x][y] = true;;
 	}
 }

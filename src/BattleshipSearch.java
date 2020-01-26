@@ -8,39 +8,46 @@ import java.util.regex.Pattern;
 
 public class BattleshipSearch 
 {
+	final int GRID_SIZE = 25;
 	SearchStrategy searchStrategy;
-	Battleship c = new CarrierBattleship();
-	Battleship s = new SubmarineBattleship();
+	Battleship carrier = new CarrierBattleship();
+	Battleship sub = new SubmarineBattleship();
 	Map<Integer, boolean[][]> game = new HashMap<Integer, boolean[][]>();
+	int gameNumber = 0;
 		
 	public BattleshipSearch() 
 	{
 		
 	}
 	
-	public void setGame(int gameNumber, boolean[][] gameGrid) 
+	public void setGame(int num, boolean[][] gameGrid) 
 	{
-		game.put(gameNumber, gameGrid);
+		game.put(num, gameGrid);
 	}
 	
 	public void displayGame(int gameNumber)
 	{
 		boolean[][] b = game.get(gameNumber);
-		for (int i = 0; i < b.length; i++) 
+		for (int i = 0; i < GRID_SIZE; i++) 
 		{
-			for (int j = 0; j < b.length; j++)
+			for (int j = 0; j < GRID_SIZE; j++)
 			{
 				int g = b[i][j] ? 1 : 0;
 				System.out.print(" | " + g);
 			}
 		
 			System.out.print(" |"+'\n');
-			for (int k = 0; k <= b.length * 4; k++)
+			for (int k = 0; k <= GRID_SIZE * 4; k++)
 			{
 				System.out.print("-");
 			}
 			System.out.print('\n');
 		}
+	}
+	
+	public void setGameNumber(int n)
+	{
+		gameNumber = n;
 	}
 	
 	public void readCoordinates() 
@@ -60,7 +67,7 @@ public class BattleshipSearch
 					String regex = "\\(([0-9]+),([0-9]+)\\)";
 					Pattern p = Pattern.compile(regex);
 					Matcher matcher = p.matcher(record);
-					boolean[][] b = new boolean[25][25];
+					boolean[][] b = new boolean[GRID_SIZE][GRID_SIZE];
 					int count = 0;
 					while (matcher.find())
 					{
@@ -69,11 +76,11 @@ public class BattleshipSearch
 						b[x][y] = true;
 						if (count < 5)
 						{
-							c.setPosition(b);
+							carrier.setPosition(x, y);
 						}
 						else
 						{
-							s.setPosition(b);
+							sub.setPosition(x, y);
 						}
 						count++;
 					}
@@ -88,6 +95,25 @@ public class BattleshipSearch
 		catch (Exception e)
 		{
 			e.printStackTrace();
+		}
+	}
+	
+	public void identifyShip(int x, int y) {
+		boolean[][] position = new boolean[GRID_SIZE][GRID_SIZE];
+		position = game.get(gameNumber);
+		for (int i = 0; i < position.length; i++) {
+			for (int j = 0; j < position.length; j++) {
+				System.out.print(position[i][j]);
+			}
+			System.out.print('\n');
+		}
+		if (position[x][y] == true)
+		{
+			System.out.println("Battleship hit");
+			if (carrier.getPosition(x, y)) {
+				System.out.println("Carrier found at " + x  + "," + y);
+			}
+			else System.out.println("Submarine found at " + x  + "," + y);
 		}
 	}
 }
