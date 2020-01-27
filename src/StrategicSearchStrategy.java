@@ -6,8 +6,9 @@ public class StrategicSearchStrategy implements SearchStrategy
 	public boolean[][] search(boolean[][] gameGrid) 
 	{
 		Random rand = new Random();
-		boolean[][] result = new boolean[gameGrid.length][gameGrid.length];
-		boolean[][] searchGrid = new boolean[gameGrid.length][gameGrid.length];
+		boolean[][] result = new boolean[gameGrid.length][gameGrid.length];			// Stores the results of the search	
+		boolean[][] searchGrid = new boolean[gameGrid.length][gameGrid.length];		// Stores the visited cells 
+		// Initialize boolean arrays
 		for (int k = 0; k < gameGrid.length; k++) 
 		{
 			for (int l = 0; l < gameGrid.length; l++) 
@@ -16,44 +17,46 @@ public class StrategicSearchStrategy implements SearchStrategy
 				searchGrid[k][l] = false;	
 			}
 		}
-		int searchCount = 0;
-		int foundCount = 0;
-		while (foundCount < 8)
+		int searchCount = 0;		// Stores the number of cells searched
+		int foundCount = 0;			// Stores the number of cells found to contain a battleship
+		// While the number of cells found is less than the total number of cells containing battleships...
+		while (foundCount < TOTAL_ITEMS)
 		{
 			searchCount++;
+			// Select random cell coordinates
 			int i = rand.nextInt(25);
 			int j = rand.nextInt(25);
-			if (searchGrid[i][j] == true)
+			if (searchGrid[i][j] == true)			// If cell has already been searched...
 			{
-				while (searchGrid[i][j] == true)
+				while (searchGrid[i][j] == true)	// While we continue to choose a random cell that has already been searched...
 				{
-					i = rand.nextInt(25);
+					// Select a new random cell
+					i = rand.nextInt(25);	
 					j = rand.nextInt(25);
 				}
 			}
 			
-			searchGrid[i][j] = true;
+			searchGrid[i][j] = true;				// Set this cell to 'searched'
 
-			if (gameGrid[i][j] == true && result[i][j] != true)
+			if (gameGrid[i][j] == true && result[i][j] != true)		// If the cell contains a battleship and we haven't already accounted for it...
 			{
 				foundCount++;
-				result[i][j] = true;
-				System.out.println("i: " + i + ", j: " + j);
-				boolean valid = true;
-				boolean top = true, bottom = true, left = true, right = true;
+				result[i][j] = true;		// Account for the found cell in our return variable
+				// Set up condition variables for upcoming loop
+				boolean valid = true, top = true, bottom = true, left = true, right = true;
 				int counter = 1;
-				while (valid)
+				
+				while (valid)		// While valid, search each direction from the current cell while we continue to discover the battleship in the adjacent cells
 				{
 					if (bottom == true)
 					{
-						if (i < gameGrid.length - counter && gameGrid[i+counter][j] == true && result[i+counter][j] != true)
+						if (i < gameGrid.length-counter && gameGrid[i+counter][j] == true && result[i+counter][j] != true)
 						{
 							searchCount++;
 							foundCount++;
 							result[i+counter][j] = true;
 							searchGrid[i+counter][j] = true;
 							bottom = true;
-							System.out.println("**i: " + (i+counter) + ", j: " + j);
 						}
 						else bottom = false;
 					}
@@ -66,7 +69,6 @@ public class StrategicSearchStrategy implements SearchStrategy
 							result[i-counter][j] = true;
 							searchGrid[i-counter][j] = true;
 							top = true;
-							System.out.println("**i: " + (i-counter) + ", j: " + j);
 						}
 						else top = false;
 					}
@@ -79,20 +81,18 @@ public class StrategicSearchStrategy implements SearchStrategy
 							result[i][j-counter] = true;
 							searchGrid[i][j-counter] = true;
 							left = true;
-							System.out.println("**i: " + i + ", j: " + (j-counter));
 						}
 						else left = false;
 					}
 					if (right == true)
 					{
-						if (j < gameGrid.length - counter && gameGrid[i][j+counter] == true && result[i][j+counter] != true)
+						if (j < gameGrid.length-counter && gameGrid[i][j+counter] == true && result[i][j+counter] != true)
 						{
 							searchCount++;
 							foundCount++;
 							result[i][j+counter] = true;
 							searchGrid[i][j+counter] = true;
 							right = true;
-							System.out.println("**i: " + i + ", j: " + (j+counter));
 						}
 						else right = false;
 					}
@@ -103,5 +103,9 @@ public class StrategicSearchStrategy implements SearchStrategy
 		}
 		System.out.println("Number of cells searched: " + searchCount);
 		return result;
+	}
+	
+	public String getName() {
+		return "Strategy: Strategic Search";
 	}
 }

@@ -20,37 +20,17 @@ public class BattleshipSearch
 		
 	}
 	
-	public void createGame(int num, boolean[][] gameGrid) 
+	public void createGame(int num, boolean[][] gameGrid)		// Populates the game hashmap
 	{
 		game.put(num, gameGrid);
 	}
 	
-	public void displayGame(int gameNumber)
-	{
-		boolean[][] b = game.get(gameNumber);
-		for (int i = 0; i < GRID_SIZE; i++) 
-		{
-			for (int j = 0; j < GRID_SIZE; j++)
-			{
-				int g = b[i][j] ? 1 : 0;
-				System.out.print(" | " + g);
-			}
-		
-			System.out.print(" |"+'\n');
-			for (int k = 0; k <= GRID_SIZE * 4; k++)
-			{
-				System.out.print("-");
-			}
-			System.out.print('\n');
-		}
-	}
-	
-	public void setGameNumber(int n)
+	public void setGameNumber(int n)							// Sets the game number for testing
 	{
 		gameNumber = n;
 	}
 	
-	public void readCoordinates() 
+	public void readCoordinates() 								// Reads the coordinates in from the input.txt file and calls the function to populate the game hashmap
 	{
 		try
 		{
@@ -98,7 +78,7 @@ public class BattleshipSearch
 		}
 	}
 	
-	public void identifyShip(int x, int y) {
+	public void identifyShip(int x, int y) {					// Identifies what kind of ship is found at a given coordinate
 		if (game.get(gameNumber)[x][y] == true)
 		{
 			if (carrier.getPosition(x, y)) {
@@ -108,8 +88,11 @@ public class BattleshipSearch
 		}
 	}
 
-	public void search()
+	public void performSearch()									// Calls the search function from the search strategy and calls the identifyShip function
 	{
+		System.out.println("------------------------------");
+		System.out.println("Game Number: " + (gameNumber+1));
+		System.out.println(searchStrategy.getName());
 		boolean[][] searchGrid = searchStrategy.search(game.get(gameNumber));
 		for (int i = 0; i < searchGrid.length; i++)
 		{

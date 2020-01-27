@@ -1,20 +1,20 @@
 public class HorizontalSweepStrategy implements SearchStrategy {
 	public boolean[][] search(boolean[][] gameGrid) {
-		boolean[][] result = new boolean[gameGrid.length][gameGrid.length];
-		int searchCount = 0;
-		int foundCount = 0;
+		boolean[][] result = new boolean[gameGrid.length][gameGrid.length];		// Stores the results of the search
+		int searchCount = 0;		// Stores the number of cells searched
+		int foundCount = 0;			// Stores the number of cells found to contain a battleship
 		for (int i = 0; i < gameGrid.length; i++)
 		{
 			for (int j = 0; j < gameGrid.length; j++) 
 			{
-				if (foundCount < 8)
+				if (foundCount < TOTAL_ITEMS)		// If the number of cells found is less than the total number of cells containing battleships...
 				{
 					searchCount++;
-					if (gameGrid[i][j] == true)
+					if (gameGrid[i][j] == true)		// If the cell contains a battleship...
 					{
 						foundCount++;
-						result[i][j] = true;
-					}	
+						result[i][j] = true;		// Account for the found cell in our return variable
+					}		
 				}
 				else {
 					System.out.println("Number of cells searched: " + searchCount);
@@ -24,5 +24,9 @@ public class HorizontalSweepStrategy implements SearchStrategy {
 		}
 		System.out.println("Number of cells searched: " + searchCount);
 		return result;
+	}
+	
+	public String getName() {
+		return "Strategy: Horizontal Sweep";
 	}
 }
