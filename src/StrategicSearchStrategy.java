@@ -50,9 +50,9 @@ public class StrategicSearchStrategy implements SearchStrategy
 				{
 					if (bottom == true)
 					{
+						searchCount++;
 						if (i < gameGrid.length-counter && gameGrid[i+counter][j] == true && result[i+counter][j] != true)
 						{
-							searchCount++;
 							foundCount++;
 							result[i+counter][j] = true;
 							searchGrid[i+counter][j] = true;
@@ -62,9 +62,9 @@ public class StrategicSearchStrategy implements SearchStrategy
 					}
 					if (top == true)
 					{
+						searchCount++;
 						if (i > counter-1 && gameGrid[i-counter][j] == true && result[i-counter][j] != true)
 						{
-							searchCount++;
 							foundCount++;
 							result[i-counter][j] = true;
 							searchGrid[i-counter][j] = true;
@@ -74,9 +74,9 @@ public class StrategicSearchStrategy implements SearchStrategy
 					}
 					if (left == true)
 					{
+						searchCount++;
 						if (j > counter-1 && gameGrid[i][j-counter] == true && result[i][j-counter] != true)
 						{
-							searchCount++;
 							foundCount++;
 							result[i][j-counter] = true;
 							searchGrid[i][j-counter] = true;
@@ -86,9 +86,9 @@ public class StrategicSearchStrategy implements SearchStrategy
 					}
 					if (right == true)
 					{
+						searchCount++;
 						if (j < gameGrid.length-counter && gameGrid[i][j+counter] == true && result[i][j+counter] != true)
 						{
-							searchCount++;
 							foundCount++;
 							result[i][j+counter] = true;
 							searchGrid[i][j+counter] = true;
