@@ -1,3 +1,11 @@
+/* RandomSearchStrategy.java
+ * 
+ * Created by: Donald Johnson
+ * 
+ * Purpose: RandomSearchStrategy.java defines a class which implements the SearchStrategy interface.
+ * 			This specific strategy searches the game grid by randomly iterating through each cell
+ * 			until all battleships are found. 
+ */
 import java.util.Random;
 
 public class RandomSearchStrategy implements SearchStrategy {

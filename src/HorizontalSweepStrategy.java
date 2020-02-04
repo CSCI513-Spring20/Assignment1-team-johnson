@@ -1,3 +1,11 @@
+/* HorizontalSweepStrategy.java
+ * 
+ * Created by: Donald Johnson
+ * 
+ * Purpose: HorizontalSweepStrategy.java defines a class which implements the SearchStrategy interface.
+ * 			This specific strategy searches the game grid by horizontally iterating through each cell
+ * 			until all battleships are found. 
+ */
 public class HorizontalSweepStrategy implements SearchStrategy {
 	public boolean[][] search(boolean[][] gameGrid) {
 		boolean[][] result = new boolean[gameGrid.length][gameGrid.length];		// Stores the results of the search

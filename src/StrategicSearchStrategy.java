@@ -1,3 +1,13 @@
+/* StrategicSearchStrategy.java
+ * 
+ * Created by: Donald Johnson
+ * 
+ * Purpose: StrategicSearchStrategy.java defines a class which implements the SearchStrategy interface.
+ * 			This specific strategy searches the game grid by randomly iterating through each cell
+ * 			until a battleship is hit. Then each von Neumann neighbor of that cell is searched until
+ * 			each direction returns a negative search. If so, then the random iteration continues until the next hit
+ * 			or until every battleship has been found.
+ */
 import java.util.Random;
 
 
