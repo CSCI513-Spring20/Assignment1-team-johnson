@@ -1,3 +1,11 @@
+/* BattleshipSearch.java
+ * 
+ * Created by: Donald Johnson
+ * 
+ * Purpose: BattleshipSearch.java defines a BattleshipSearch class which utilizes the Battleship and SearchStrategy classes in conjunction
+ * 			to search for battleships on a game grid by using a specified search strategy.
+ */
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.HashMap;
